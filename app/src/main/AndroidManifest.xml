@@ -17,6 +17,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".EditorActivity"></activity>
+        <provider
+            android:authorities="ssbahmed.com.inventoryapp"
+            android:name=".data.InventoryProvider"
+            android:exported="false"/>
     </application>
 
 </manifest>

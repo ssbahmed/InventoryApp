@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,8 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.support.design.widget.FloatingActionButton;
 import android.widget.TextView;
-
-import ssbahmed.com.inventoryapp.data.InventoryContract;
 import ssbahmed.com.inventoryapp.data.InventoryHelper;
 import ssbahmed.com.inventoryapp.data.InventoryContract.ItemEntry;
 
@@ -41,7 +40,7 @@ public class CatalogActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        displayInfo();
+       displayInfo();
     }
 
     @Override
@@ -60,15 +59,13 @@ public class CatalogActivity extends AppCompatActivity {
                 displayInfo();
                 return true;
             case R.id.action_delete_all_entries:
-
+                deleteItem();
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void displayInfo(){
-        // Create and/or open a database to read from it
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.
@@ -79,15 +76,13 @@ public class CatalogActivity extends AppCompatActivity {
                 ItemEntry.COLUMN_ITEM_PRICE,
                 ItemEntry.COLUMN_ITEM_QUANTITY};
 
-        // Perform a query on the pets table
-        Cursor cursor = db.query(
-                ItemEntry.TABLE_NAME,   // The table to query
+
+        Cursor cursor =getContentResolver().query( ItemEntry.CONTENT_URI,   // The table to query
                 projection,            // The columns to return
                 null,                  // The columns for the WHERE clause
                 null,                  // The values for the WHERE clause
-                null,                  // Don't group the rows
-                null,                  // Don't filter by row groups
-                null);                   // The sort order
+                null                  // Don't group the rows
+                );
 
         TextView displayView = (TextView) findViewById(R.id.text);
 
@@ -138,8 +133,6 @@ public class CatalogActivity extends AppCompatActivity {
     }
 
     private void insertItem(){
-        // Gets the database in write mode
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         // Create a ContentValues object where column names are the keys,
         // and Toto's pet attributes are the values.
@@ -148,6 +141,13 @@ public class CatalogActivity extends AppCompatActivity {
         values.put(ItemEntry.COLUMN_ITEM_DESCRIPTION, "The last trend of ");
         values.put(ItemEntry.COLUMN_ITEM_PRICE, 55);
         values.put(ItemEntry.COLUMN_ITEM_QUANTITY, 2);
-        long newRowId = db.insert(ItemEntry.TABLE_NAME, null, values);
+        Uri newUri =getContentResolver().insert(ItemEntry.CONTENT_URI,values);
+    }
+
+
+    private void deleteItem()
+    {
+     int rawDeleted = getContentResolver().delete(ItemEntry.CONTENT_URI,null,null);
+
     }
 }

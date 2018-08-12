@@ -12,37 +12,45 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+        >
         <TextView
             android:layout_weight="1"
             android:id="@+id/name"
             android:text="Name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="#2B3D4D"/>
          <EditText
              android:id="@+id/edit_name"
              android:layout_weight="1"
              android:layout_width="0dp"
-             android:hint="Name"
-             android:layout_height="wrap_content" />
+             android:layout_height="wrap_content"
+             />
     </LinearLayout>
 
     <!-- Description  of product  -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
         <TextView
             android:layout_weight="1"
             android:id="@+id/descriptipn"
             android:text="Description"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="#2B3D4D"/>
         <EditText
             android:id="@+id/edit_des"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:hint="description"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
@@ -52,14 +60,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
         <TextView
             android:layout_weight="1"
-            android:id="@+id/quantity"
+            android:id="@+id/price"
+            android:text="Price"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="#2B3D4D"/>
         <EditText
-            android:id="@+id/edit_quntity"
+            android:id="@+id/edit_price"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
@@ -69,18 +82,21 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
         <TextView
             android:layout_weight="1"
-            android:id="@+id/price"
-            android:text="Name"
+            android:id="@+id/Quantity"
+            android:text="quantity"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="#2B3D4D"/>
         <EditText
-            android:id="@+id/edit_price"
+            android:id="@+id/edit_quntity"
             android:layout_weight="1"
             android:layout_width="0dp"
-            android:hint="Name"
             android:layout_height="wrap_content" />
     </LinearLayout>
 

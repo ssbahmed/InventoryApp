@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
+
 import ssbahmed.com.inventoryapp.data.InventoryContract.ItemEntry;
 
 /*  CatalogCursorAdapter is an adapter for a list or grid view
@@ -33,6 +34,7 @@ public class CatalogCursorAdapter extends CursorAdapter {
     public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
         return LayoutInflater.from(context).inflate(R.layout.list_item, viewGroup, false);
     }
+
     /*This method binds the pet data (in the current row pointed to by cursor) to the given
       list item layout.
     param view    Existing view, returned earlier by newView() method
@@ -42,22 +44,22 @@ public class CatalogCursorAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
 
-        TextView nameTv = (TextView)view.findViewById(R.id.name);
-        TextView desTv = (TextView)view.findViewById(R.id.des);
-        TextView priceTv = (TextView)view.findViewById(R.id.price);
+        TextView nameTv = (TextView) view.findViewById(R.id.name);
+        TextView desTv = (TextView) view.findViewById(R.id.des);
+        TextView priceTv = (TextView) view.findViewById(R.id.price);
         // find the items attribute that we interested in
-        int nameColumnIndex =cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_NAME);
+        int nameColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_NAME);
         int desColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_DESCRIPTION);
         int priceColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_PRICE);
         // read the attribute from the cursor
         String name = cursor.getString(nameColumnIndex);
         String des = cursor.getString(desColumnIndex);
-        int priceString =cursor.getInt(priceColumnIndex);
-        String price =Integer.toString(priceString);
+        int priceString = cursor.getInt(priceColumnIndex);
+        String price = Integer.toString(priceString);
 
         nameTv.setText(name);
         desTv.setText(des);
-        //priceTv.setText(price);
+        priceTv.setText(price);
 
     }
 }

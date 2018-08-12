@@ -40,11 +40,16 @@ public class CatalogActivity extends AppCompatActivity  implements LoaderManager
                 startActivity(intent);
             }
         });
+
         // Find the ListView which will be populated with the pet data
         ListView itemListView = (ListView) findViewById(R.id.list);
         mCursorAdapter = new CatalogCursorAdapter(this,null);
         itemListView.setAdapter(mCursorAdapter);
         getLoaderManager().initLoader(ITEM_LOADER,null,this);
+
+        // Find and set empty view on the ListView, so that it only shows when the list has 0 items.
+        View emptyView = findViewById(R.id.empty_view);
+        itemListView.setEmptyView(emptyView);
 
         //setup an item click listener
         itemListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

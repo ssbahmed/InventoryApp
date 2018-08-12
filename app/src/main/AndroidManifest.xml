@@ -16,7 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EditorActivity"></activity>
+        <activity android:name=".EditorActivity"
+            android:parentActivityName=".CatalogActivity" >
+
+        </activity>
         <provider
             android:authorities="ssbahmed.com.inventoryapp"
             android:name=".data.InventoryProvider"

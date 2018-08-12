@@ -86,6 +86,10 @@ public class InventoryProvider extends ContentProvider {
                 throw new IllegalArgumentException("Cannot query unknown URI " + uri);
 
         }
+        /*set notification uri on the cursor so we know
+          what content uri the cursor was created for
+          if the data at this uri changes then we know we need to update the cursor */
+        cursor.setNotificationUri(getContext().getContentResolver(),uri);
         return cursor;
     }
 
@@ -135,7 +139,8 @@ public class InventoryProvider extends ContentProvider {
             Log.e(LOG_TAG, "Failed to insert row for " + uri);
             return null;
         }
-      //  getContext().getContentResolver().notifyChange(uri,null);
+        //notify all listeners that the data has changed for item content uri
+        getContext().getContentResolver().notifyChange(uri,null);
         return ContentUris.withAppendedId(uri, id);
     }
 
@@ -165,7 +170,12 @@ public class InventoryProvider extends ContentProvider {
             default:
                 throw new IllegalArgumentException("Deletion is not supported for " + uri);
         }
+        // If 1 or more rows were deleted, then notify all listeners that the data at the
+        // given URI has changed
+        if (rowsDeleted != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
 
+        }
         return rowsDeleted;
     }
     // Updates the data at the given selection and selection arguments, with the new ContentValues.
@@ -187,7 +197,23 @@ public class InventoryProvider extends ContentProvider {
         }
     }
 
-    private int updatePet(Uri uri, ContentValues values, String selection, String[] selectionArgs) {return 0;}
+    private int updatePet(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+        // Otherwise, get writeable database to update the data
+        SQLiteDatabase database = mDbHelper.getWritableDatabase();
+
+        // Perform the update on the database and get the number of rows affected
+        int rowsUpdated = database.update(ItemEntry.TABLE_NAME, values, selection, selectionArgs);
+        // If 1 or more rows were updated, then notify all listeners that the data at the
+        // given URI has changed
+        if (rowsUpdated != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+        // Return the number of rows updated
+        return rowsUpdated;
+
+
+
+    }
 
 
 }
